@@ -1,20 +1,28 @@
-<h1> Github Release Tracker </h1>
+<div class="jumbotron">
+	<h1> Github Release Tracker </h1>
+</div>
 
-
-<ul>
-	<li ng-repeat="release in releases">
+<div ng-repeat="release in releases" style="margin:10px; float:left; width:45%;">
 		<h2>{{ release.name }}</h2>
 		<h4>Created: {{release.created_at}}</h4>
-		<table>
+		<table class="table table-condensed table-striped">
+		<thead>
 		<tr> 
 			<th>Name</th>
-			<td>Downloads</td>
+			<th>Downloads</th>
 		</tr>
+		</thead>
+		<tbody>
 		<tr ng-repeat="asset in release.assets | orderBy: asset.download_count ">
-			<td>{{asset.name}}<td>
-			<td>{{asset.download_count}}</td>
+			<td>{{asset.name}}</td>
+			<th>{{asset.download_count}}</td>
 		</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+			<th style='text-align:right'>Total:</th>
+			<th>{{getTotal(release)}}</th>
+			</tr>
+		</tfoot>
 		</table>
-	</li>
-	
-</ul>
+</div>

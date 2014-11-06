@@ -14,4 +14,12 @@ angular.module('GithubMon.controllers', ['GithubMon.settings', 'GithubMon.provid
         $scope.releases = result;
     });
 
+    $scope.getTotal = function(release) {
+        var count = 0;
+        release.assets.map(function(asset) {
+            count += asset.download_count;
+        });
+        return count;
+    };
+
 });
