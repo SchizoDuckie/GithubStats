@@ -1,18 +1,3 @@
-/**
- * The background.js service gets launched by chrome's background process when a timer is about to fire
- * It's basically a minimalist implementation of DuckieTV's favorites update mechanism.
- *
- * The way this works is simple:
- * A timer launches an event channel at a given time
- * It broadcasts a message on a channel something is listening for (for instance favorites:update, which triggers the FavoritesService)
- * After that the page gets torn down again to reduce memory footprint.
- *
- */
-
-
-/** 
- * Make sure migrations don't run on the latest versions.
- */
 chrome.runtime.onInstalled.addListener(function(details) {
     localStorage.setItem('runtime.event', angular.toJson(details, true));
     if (details.reason == "install") {
@@ -28,26 +13,14 @@ chrome.runtime.onInstalled.addListener(function(details) {
             localStorage.setItem('upgrade.notify', thisVersion);
         }
     };
-    setTimeout(function() { // on start-up, run the fixMissingTimers
-        angular.element(document).injector().get('EventSchedulerService').fixMissingTimers();
-    }, 5000);
+   
 });
 
 /**
  * Handle global dependencies
  */
-angular.module('DuckieTV', [
-    'DuckieTV.directives.torrentdialog',
-    'DuckieTV.providers.eventwatcher',
-    'DuckieTV.providers.eventscheduler',
-    'DuckieTV.providers.episodeaired',
-    'DuckieTV.providers.favorites',
-    'DuckieTV.providers.trakttv',
-    'DuckieTV.providers.settings',
-    'DuckieTV.providers.scenenames',
-    'DuckieTV.providers.storagesync',
-    'DuckieTV.providers.mirrorresolver',
-    'DuckieTV.providers.thepiratebay'
+angular.module('GithubMon', [
+    'GithubMon.settings'
 ])
 
 /**
@@ -58,24 +31,14 @@ angular.module('DuckieTV', [
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file):|data:image|filesystem:chrome-extension:/);
 })
 
-/** 
- * The only thing we do is start the event scheduler service, which in turn broadcasts messages to anything listening.
- * FavoritesService is added as a dependency so that it can pick up these events upon initialisation.
- */
-.run(function(EventWatcherService, EpisodeAiredService, FavoritesService, SettingsService, StorageSyncService, $rootScope) {
+
+.run(function(SettingsService) {
 
     $rootScope.getSetting = function(key) {
         return SettingsService.get(key);
     };
-    // when the sync has happened, check if there's a foreground page active and notify that of changes that came in.
-    $rootScope.$on('storage:hassynced', function(event, progress) {
-        console.log('storage has synced! Messaging foreground to process deletions!', progress);
-        chrome.runtime.sendMessage({ channel: 'sync:processremoteupdate', eventData: progress});
-    });
-    EventWatcherService.initialize();
-    EpisodeAiredService.attach();
-    StorageSyncService.attach();
+   
 });
 
 // Since there is no html document that bootstraps angular using an ang-app tag, we need to call bootstrap manually
-angular.bootstrap(document, ['DuckieTV']);
+angular.bootstrap(document, ['GithubMon']);
