@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_appNameNewTab__",
+    "short_name": "__MSG_appShortNameNewTab__",
+    "description": "__MSG_appDescNewTab__",
+    "default_locale": "en",
+    "version": "0.80",
+    "permissions": [
+        "https://api.github.com/*",
+        "alarms",
+        "unlimitedStorage"
+    ],
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "background": {
+        "scripts": [
+            "js/vendor/promise-3.2.0.js",
+            "js/vendor/CRUD.js",
+            "js/vendor/CRUD.SqliteAdapter.js",
+            "js/CRUD.entities.js",
+            "js/vendor/angular.js",
+            "js/vendor/angular-sanitize.min.js",
+            "js/background.js",
+            "js/launch.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_title": "",
+        "default_icon": "img/icon48.png"
+    },
+    "homepage_url": "http://reddit.com/r/duckietv"
+}

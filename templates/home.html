@@ -1,0 +1,20 @@
+<h1> Github Release Tracker </h1>
+
+
+<ul>
+	<li ng-repeat="release in releases">
+		<h2>{{ release.name }}</h2>
+		<h4>Created: {{release.created_at}}</h4>
+		<table>
+		<tr> 
+			<th>Name</th>
+			<td>Downloads</td>
+		</tr>
+		<tr ng-repeat="asset in release.assets | orderBy: asset.download_count ">
+			<td>{{asset.name}}<td>
+			<td>{{asset.download_count}}</td>
+		</tr>
+		</table>
+	</li>
+	
+</ul>

@@ -1,0 +1,14 @@
+{
+    "appNameNewTab": {
+        "message": "Github Monitor",
+        "description": ""
+    },
+    "appShortNameNewTab": {
+        "message": "GithubMon",
+        "description": "Shortname"
+    },
+    "appDescNewTab": {
+        "message": "Monitor github statistics over time",
+        "description": "Webstore Tagline"
+    }
+}
