@@ -4,7 +4,7 @@
 
 <div ng-repeat="release in releases" style="margin:10px; float:left; width:45%;">
 		<h2>{{ release.name }}</h2>
-		<h4>Created: {{release.created_at}}</h4>
+		<h4>Created: {{release.created_at | date:'medium'}}</h4>
 		<table class="table table-condensed table-striped">
 		<thead>
 		<tr> 
