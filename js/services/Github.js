@@ -25,9 +25,12 @@ angular.module('GithubMon.providers', ['GithubMon.settings'])
 
 
         getRepositories: function(name) {
+
             return $http.get(getUrl('repos', name), {
-                cache: true
-            }).then(function(data) {
+                headers: {
+                    Authorization: 'Basic ' + Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0')
+                }
+            }).then(function(data, xhr) {
                 return data.data;
             });
         },
@@ -35,7 +38,12 @@ angular.module('GithubMon.providers', ['GithubMon.settings'])
         getReleases: function(name, repository) {
 
             return $http.get(getUrl('releases', name, repository), {
-                cache: true
+                headers: {
+
+                    Authorization: 'Basic ' + Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0')
+
+                }
+
             }).then(function(data) {
                 return data.data;
 
