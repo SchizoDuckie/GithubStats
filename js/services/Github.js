@@ -1,11 +1,9 @@
-angular.module('GithubMon.providers', ['GithubMon.settings'])
-
 /** 
  * Github API endpoint
  */
-.factory('Github', function(SettingsService, $q, $http) {
+GithubStats.factory('Github', function(SettingsService, $q, $http) {
 
-    var activeRequest = false;
+    var credentials = Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0');
 
     var endpoints = {
         repos: 'https://api.github.com/users/%s/repos',
@@ -22,31 +20,22 @@ angular.module('GithubMon.providers', ['GithubMon.settings'])
 
 
     var service = {
-
-
         getRepositories: function(name) {
-
             return $http.get(getUrl('repos', name), {
                 headers: {
-                    Authorization: 'Basic ' + Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0')
+                    Authorization: 'Basic ' + credentials
                 }
-            }).then(function(data, xhr) {
+            }).then(function(data) {
                 return data.data;
             });
         },
-
         getReleases: function(name, repository) {
-
             return $http.get(getUrl('releases', name, repository), {
                 headers: {
-
-                    Authorization: 'Basic ' + Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0')
-
+                    Authorization: 'Basic ' + credentials
                 }
-
             }).then(function(data) {
                 return data.data;
-
             });
         }
     };

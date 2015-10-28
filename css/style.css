@@ -1,0 +1,23 @@
+#container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#releases {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#releases > div {
+	width: 46%;
+}
+#releases .release h4 span {
+	margin-left: 6px;
+}
+
+#menu {
+	float: right; 
+	margin-right: 35px;
+	min-width: 286px;
+}

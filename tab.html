@@ -1,15 +1,14 @@
 <!doctype html>
-<html ng-app="GithubMon" ng-csp>
+<html ng-app="GithubStats" ng-csp>
 <head>
   <meta charset="UTF-8">
   <title>Github Monitor</title>
   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
   <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div data-ng-view style='-webkit-transform:translate3d(0,0,0)'></div>
-     
-  </div>
  
   <!-- deploy:replace='<script src="dist/deps.js"></script>' -->
   <script src='./js/vendor/promise-3.2.0.js'></script>
@@ -22,13 +21,11 @@
   <script src='./js/vendor/ui-bootstrap-tpls-0.10.0.min.js'></script>
   <!-- /deploy:replace -->
   <!-- deploy:replace='<script src="dist/app.js"></script>' -->
-  <script src="./js/controllers/HomeCtrl.js"></script>
+  <script src="./js/app.js"></script>
   <script src="./js/services/Github.js"></script>
   <script src="./js/services/GithubMonitor.js"></script>
   <script src="./js/services/SettingsService.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="./js/controllers/HomeCtrl.js"></script>
   <!-- /deploy:replace -->
-
 </body>
-
 </html>
