@@ -2,8 +2,11 @@
  * Github API endpoint
  */
 GithubStats.factory('Github', function(SettingsService, $q, $http) {
-
-    var credentials = Base64.encode('SchizoDuckie:853e095075b834f9d490ec54b1507c220b7816b0');
+    if (!localStorage.getItem('token')) {
+        token = prompt("Please enter the github auth token");
+        localStorage.setItem('token', token);
+    }
+    var credentials = Base64.encode('SchizoDuckie:' + localStorage.getItem('token'));
 
     var endpoints = {
         repos: 'https://api.github.com/users/%s/repos',
