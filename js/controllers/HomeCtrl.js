@@ -47,24 +47,24 @@ GithubStats.directive('usernameExistsValidator', ["Github",
         var vm = this;
 
         this.repos = [];
-        this.releases = [];
 
         this.getReleases = function() {
-            vm.releases = [];
+            vm.repos = [];
             GithubMonitor.read().then(function() {
                 vm.projects = GithubMonitor.projects;
                 GithubMonitor.projects.map(function(project) {
-                    Github.getReleases(project.username, project.repository).then(function(result) {
-                        console.log("Fetched release for", project.repository, result);
-                        result.map(function(release) {
-                            release.username = project.username;
-                            release.repository = project.repository;
+                    var out = project;
+                    out.releases = [];
+                    Github.getReleases(project.username, project.repository).then(function(releases) {
+                        console.log("Fetched release for", project.repository, releases);
+                        releases.map(function(release) {
                             release.assets.sort(function(a, b) {
                                 return a.download_count < b.download_count;
                             });
-                            vm.releases.push(release);
+                            out.releases.push(release);
                         });
                     });
+                    vm.repos.push(out); 
                 });
             });
         };
@@ -76,14 +76,16 @@ GithubStats.directive('usernameExistsValidator', ["Github",
 
         this.remove = function(project) {
             GithubMonitor.remove(project);
+            this.getReleases();
         };
 
-        this.getTotal = function(release) {
+        this.getTotal = function(release, index) {
             console.log("Get total for Release:", release.name);
             var count = 0;
             if (release.assets) {
                 release.assets.map(function(asset) {
                     count += asset.download_count;
+
                 });
             }
             return count;

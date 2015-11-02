@@ -4,12 +4,44 @@
 }
 
 #releases {
+	overflow: hidden;
+	transition: opacity 0.3s ease-in-out;
+	transition-delay: 3s;
+}
+
+#releases .project {
+	position: relative;
+	padding-top: 37px;
+	margin: 12px 0;
+}
+#releases .project .project_inner {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
+	position: relative;
+	overflow: hidden;
+}
+#releases .project > h2 {
+	position: absolute;
+	top: 0;
+	left: 33px;
+	margin: 0;
+	padding: 0;
+	margin-top: 5px;
+	cursor: pointer;
+}
+#releases .project > span {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	cursor: pointer;
+	transition: transform 0.4s ease-in-out;
+}
+#releases .project > span.rotate {
+	transform: rotate(-90deg);
 }
 
-#releases > div {
+#releases .release {
 	width: 46%;
 }
 #releases .release h4 span {

@@ -3,26 +3,33 @@
 </div>
 
 <div id="container">
-	<div id="releases">
-		<div ng-repeat="release in vm.releases track by $index" class="release">
-			<h2>{{::release.name}}</h2>
-			<h4>Created: {{::release.created_at | date:'medium'}} 
-				<span class="text-muted">{{::release.username}}/{{::release.repository}}</span>
-			</h4>
-			<table class="table table-condensed table-striped">
-			<tr> 
-				<th>Name</th>
-				<th>Downloads</th>
-			</tr>
-			<tr ng-repeat="asset in release.assets track by $index">
-				<td>{{::asset.name}}</td>
-				<th>{{::asset.download_count}}</th>
-			</tr>
-			<tr>
-				<th style='text-align:right'>Total:</th>
-				<th>{{::vm.getTotal(release)}}</th>
-			</tr>
-			</table>
+	<div id="releases" ng-class="{'loaded': vm.loaded}">
+		<div ng-repeat="project in vm.repos track by $index" class="project">
+			<span class="glyphicon glyphicon-triangle-bottom" ng-class="{'rotate': isCollapsed}"></span>
+			<h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}</h2>
+			<div class="project_inner" collapse="isCollapsed">
+				<h3 ng-if="project.releases.length == 0">No Releases found</h3>
+				<div ng-repeat="release in project.releases track by $index" class="release">
+					<h2>{{::release.name}}</h2>
+					<h4>Created: {{::release.created_at | date:'medium'}} 
+						<span class="text-muted">{{::project.username}}/{{::project.repository}}</span>
+					</h4>
+					<table class="table table-condensed table-striped">
+					<tr> 
+						<th>Name</th>
+						<th>Downloads</th>
+					</tr>
+					<tr ng-repeat="asset in release.assets track by $index">
+						<td>{{::asset.name}}</td>
+						<th>{{::asset.download_count}}</th>
+					</tr>
+					<tr>
+						<th style='text-align:right'>Total:</th>
+						<th>{{::vm.getTotal(release, $parent.$index)}}</th>
+					</tr>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="menu">
