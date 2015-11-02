@@ -1,12 +1,13 @@
 <div class="jumbotron">
-	<h1> Github Release Tracker</h1>
+	<h1>Github Release Tracker</h1>
 </div>
 
 <div id="container">
-	<div id="releases" ng-class="{'loaded': vm.loaded}">
+	<div id="releases">
 		<div ng-repeat="project in vm.repos track by $index" class="project">
 			<span class="glyphicon glyphicon-triangle-bottom" ng-class="{'rotate': isCollapsed}"></span>
 			<h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}</h2>
+
 			<div class="project_inner" collapse="isCollapsed">
 				<h3 ng-if="project.releases.length == 0">No Releases found</h3>
 				<div ng-repeat="release in project.releases track by $index" class="release">
@@ -25,7 +26,7 @@
 					</tr>
 					<tr>
 						<th style='text-align:right'>Total:</th>
-						<th>{{::vm.getTotal(release, $parent.$index)}}</th>
+						<th>{{::vm.getTotal(release)}}</th>
 					</tr>
 					</table>
 				</div>
@@ -34,14 +35,14 @@
 	</div>
 	<div id="menu">
 		<div class="well sidebar-nav">    
-		 <form>
-		  <h4>Monitoring repositories</h4>
-		  <ul class="nav">
-		  	<li ng-repeat="project in vm.projects"> 
-		  	  <i class="glyphicon glyphicon-trash" ng-click="vm.remove(project)"></i> {{project.username}}/{{project.repository}}
-		  	</li>
-		  </ul>
-		</form>
+			<form>
+			  <h4>Monitoring repositories</h4>
+			  <ul class="nav">
+			  	<li ng-repeat="project in vm.projects"> 
+			  	  <i class="glyphicon glyphicon-trash" ng-click="vm.remove(project)"></i> {{project.username}}/{{project.repository}}
+			  	</li>
+			  </ul>
+			</form>
 		</div>
 
 		<div class="well sidebar-nav">

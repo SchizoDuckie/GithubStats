@@ -70,22 +70,18 @@ GithubStats.directive('usernameExistsValidator', ["Github",
         };
 
         console.log("Repos:", this.projects);
-        this.add = function() {
-            GithubMonitor.add(user, repo);
-        };
 
         this.remove = function(project) {
             GithubMonitor.remove(project);
             this.getReleases();
         };
 
-        this.getTotal = function(release, index) {
+        this.getTotal = function(release) {
             console.log("Get total for Release:", release.name);
             var count = 0;
             if (release.assets) {
                 release.assets.map(function(asset) {
                     count += asset.download_count;
-
                 });
             }
             return count;
