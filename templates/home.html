@@ -6,10 +6,13 @@
 	<div id="releases">
 		<div ng-repeat="project in vm.repos track by $index" class="project">
 			<span class="glyphicon glyphicon-triangle-bottom" ng-class="{'rotate': isCollapsed}"></span>
-			<h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}</h2>
+			<h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}
+				<small>Total Downloads {{project.total_downloads|number}}</small>
+			</h2>
 
 			<div class="project_inner" collapse="isCollapsed">
-				<h3 ng-if="project.releases.length == 0">No Releases found</h3>
+				<h3 ng-if="project.releases.length == 0 && !project.noReleases">Loading...</h3>
+				<h3 ng-if="project.noReleases">No releases found</h3>
 				<div ng-repeat="release in project.releases track by $index" class="release">
 					<h2>{{::release.name}}</h2>
 					<h4>Created: {{::release.created_at | date:'medium'}} 
@@ -26,7 +29,7 @@
 					</tr>
 					<tr>
 						<th style='text-align:right'>Total:</th>
-						<th>{{::vm.getTotal(release)}}</th>
+						<th>{{::release.download_count|number}}</th>
 					</tr>
 					</table>
 				</div>

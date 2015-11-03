@@ -1,10 +1,7 @@
-#container {
-	display: flex;
-	justify-content: flex-end;
-}
-
 #releases {
 	overflow: hidden;
+	float: left;
+	width: calc(100% - 325px);
 }
 
 #releases .project {
@@ -28,6 +25,10 @@
 	margin-top: 5px;
 	cursor: pointer;
 }
+#releases .project > h2 > small{
+	margin-left: 3px;
+	font-size: 60%;
+}
 #releases .project > span {
 	position: absolute;
 	top: 15px;
@@ -49,5 +50,5 @@
 #menu {
 	float: right; 
 	margin-right: 35px;
-	min-width: 286px;
+	width: 286px;
 }
