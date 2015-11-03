@@ -56,7 +56,6 @@ GithubStats.directive('usernameExistsValidator', ["Github",
                     var out = project;
                     out.releases = [];
                     out.total_downloads = 0;
-
                     Github.getReleases(project.username, project.repository).then(function(releases) {
                         console.log("Fetched release for", project.repository, releases);
                         // If project has no releases
@@ -65,12 +64,12 @@ GithubStats.directive('usernameExistsValidator', ["Github",
                             console.log("Project", project.repository, "has no releases");
                             return;
                         }
-
                         releases.map(function(release) {
+                            release.download_count = 0;
                             // Calculate total downloads for release
                             release.assets.map(function(asset) {
                                 out.total_downloads += asset.download_count;
-                                release.download_count = asset.download_count;
+                                release.download_count += asset.download_count;
                             });
                             // Sort release assests by Download Count
                             release.assets.sort(function(a, b) {
