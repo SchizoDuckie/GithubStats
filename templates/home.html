@@ -1,79 +1,51 @@
 <div class="jumbotron">
-	<h1>Github Release Tracker</h1>
+    <div id="animate-area"></div>
+    <h1>Github Release Tracker</h1>
 </div>
 
 <div id="container">
-	<div id="releases">
-		<div ng-repeat="project in vm.repos track by $index" class="project">
-			<span class="glyphicon glyphicon-triangle-bottom" ng-class="{'rotate': isCollapsed}"></span>
-			<h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}
-				<small>Total Downloads {{project.total_downloads|number}}</small>
-			</h2>
+    <div id="releases">
+        <github-project ng-repeat="project in vm.repos track by $index" class="project"></github-project>
+    </div>
+    <div id="menu">
+        <div class="well sidebar-nav">    
+            <form>
+              <h4 class="monitoring">Monitoring repositories</h4> 
+              <span ng-click="vm.refresh()" tooltip="Fetch new stats" class="refresh-button"><i class="glyphicon glyphicon-refresh"></i></span>
+              <ul class="nav">
+                <li ng-repeat="project in vm.projects"> 
+                  <i class="glyphicon glyphicon-trash" ng-click="vm.remove(project)"></i> {{project.username}}/{{project.repository}}
+                </li>
+              </ul>
+            </form>
+        </div>
 
-			<div class="project_inner" collapse="isCollapsed">
-				<h3 ng-if="project.releases.length == 0 && !project.noReleases">Loading...</h3>
-				<h3 ng-if="project.noReleases">No releases found</h3>
-				<div ng-repeat="release in project.releases track by $index" class="release">
-					<h2>{{::release.name}}</h2>
-					<h4>Created: {{::release.created_at | date:'medium'}} 
-						<span class="text-muted">{{::project.username}}/{{::project.repository}}</span>
-					</h4>
-					<table class="table table-condensed table-striped">
-					<tr> 
-						<th>Name</th>
-						<th>Downloads</th>
-					</tr>
-					<tr ng-repeat="asset in release.assets track by $index">
-						<td>{{::asset.name}}</td>
-						<th>{{::asset.download_count}}</th>
-					</tr>
-					<tr>
-						<th style='text-align:right'>Total:</th>
-						<th>{{::release.download_count|number}}</th>
-					</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="menu">
-		<div class="well sidebar-nav">    
-			<form>
-			  <h4>Monitoring repositories</h4>
-			  <ul class="nav">
-			  	<li ng-repeat="project in vm.projects"> 
-			  	  <i class="glyphicon glyphicon-trash" ng-click="vm.remove(project)"></i> {{project.username}}/{{project.repository}}
-			  	</li>
-			  </ul>
-			</form>
-		</div>
+        <div class="well sidebar-nav">
+            <form name="addForm" ng-controller="FormCtrl as form" ng-submit="form.submit(addForm.$valid, addForm.data)">
+                <h4>Watch a repository</h4>
+                <label class="form-label">Github Username</label>
+                <input type="text" class="form-control" name="username" ng-model="form.username" minlength="2" username-exists-validator
+                ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }" required ng-change="form.valueChanged()" ng-blur="form.valueChanged()" />
 
-		<div class="well sidebar-nav">
-			<form name="addForm" ng-controller="FormCtrl as form" ng-submit="form.submit(addForm.$valid, addForm.data)">
-				<h4>Watch a repository</h4>
-				<label class="form-label">Github Username</label>
-				<input type="text" class="form-control" name="username" ng-model="form.username" minlength="2" username-exists-validator
-				ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }" required ng-change="form.valueChanged()" ng-blur="form.valueChanged()" />
+                <div ng-if="addForm.username.$pending">
+                    Validating username
+                </div>
+                <div ng-if="!addForm.username.$valid">
+                    Invalid username.
+                </div>
+                <div ng-if="addForm.username.$valid">
+                    Valid username {{valueChanged()}}
+                </div>
 
-				<div ng-if="addForm.username.$pending">
-					Validating username
-				</div>
-				<div ng-if="!addForm.username.$valid">
-					Invalid username.
-				</div>
-				<div ng-if="addForm.username.$valid">
-					Valid username {{valueChanged()}}
-				</div>
+                <label class="form-label" style="margin-top:4px">Repository</label>
+                <select ng-disabled="form.repositories.length == 0" class='form-control' name="repositories" ng-model="form.repository" ng-options="repo.name for repo in form.repositories" required ng-change="form.repoChanged()">
+                </select>
 
-				<label class="form-label" style="margin-top:4px">Repository</label>
-				<select ng-disabled="form.repositories.length == 0" class='form-control' name="repositories" ng-model="form.repository" ng-options="repo.name for repo in form.repositories" required ng-change="form.repoChanged()">
-				</select>
-
-				<input type="submit" ng-disabled="!addForm.$valid" class="btn btn-success" value="Watch repository" style='margin-top:10px'/>
-			</form>
-		</div>
-	</div>
+                <input type="submit" ng-disabled="!addForm.$valid" class="btn btn-success" value="Watch repository" style='margin-top:10px'/>
+            </form>
+        </div>
+    </div>
 </div>
 
 
-	
+    

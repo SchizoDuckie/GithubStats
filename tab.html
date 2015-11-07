@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div data-ng-view style='-webkit-transform:translate3d(0,0,0)'></div>
+  <div data-ng-view></div>
  
   <!-- deploy:replace='<script src="dist/deps.js"></script>' -->
   <script src='./js/vendor/promise-3.2.0.js'></script>
@@ -22,10 +22,16 @@
   <!-- /deploy:replace -->
   <!-- deploy:replace='<script src="dist/app.js"></script>' -->
   <script src="./js/app.js"></script>
+
   <script src="./js/services/Github.js"></script>
   <script src="./js/services/GithubMonitor.js"></script>
+  <script src="./js/services/GithubMonitorUpdateService.js"></script>
   <script src="./js/services/SettingsService.js"></script>
+
   <script src="./js/controllers/HomeCtrl.js"></script>
+
+  <script src="./js/directives/githubProject.js"></script>
+  <script src="./js/directives/githubRelease.js"></script>
   <!-- /deploy:replace -->
 </body>
 </html>

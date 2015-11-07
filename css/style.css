@@ -8,6 +8,8 @@
 	position: relative;
 	padding-top: 37px;
 	margin: 12px 0;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
 }
 #releases .project .project_inner {
 	display: flex;
@@ -42,6 +44,8 @@
 
 #releases .release {
 	width: 46%;
+	opacity: 0;
+	transition: opacity 0.25s ease-in-out;
 }
 #releases .release h4 span {
 	margin-left: 6px;
@@ -51,4 +55,18 @@
 	float: right; 
 	margin-right: 35px;
 	width: 286px;
+}
+#menu h4.monitoring {
+	display: inline-block;
+    width: calc(100% - 26px);
+}
+
+#menu .refresh-button, #menu .refresh-button i {
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+	font-size: 16px;
+}
+
+#menu .refresh-button:hover i {
+	transform: rotate(180deg);
 }

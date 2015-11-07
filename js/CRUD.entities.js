@@ -6,6 +6,10 @@
  * It also provides the automatic execution of the create statements when a database table is not available.
  */
 
+function Project() {
+    CRUD.Entity.call(this);
+}
+
 var Project = CRUD.define({
     className: 'Project',
     table: 'Project',
@@ -16,9 +20,17 @@ var Project = CRUD.define({
     relations: {
         'Stats': CRUD.RELATION_FOREIGN
     },
-
 }, {
-
+    getStats: function() {
+        return CRUD.Find(Stats, {ID_Project: this.getID()});
+    },
+    getLatestStats: function() {
+        return CRUD.Find(Stats, {ID_Project: this.getID()}).then(function(results) {
+            return results.sort(function(a,b) {
+                return a.pointInTime < b.pointInTime;
+            });
+        });
+    }
 });
 
 
@@ -32,12 +44,10 @@ var Stats = CRUD.define({
     relations: {
         'Project': CRUD.RELATION_FOREIGN
     },
-
 }, {
-
 });
 
 
-//CRUD.DEBUG = true;
+CRUD.DEBUG = false;
 
 CRUD.setAdapter(new CRUD.SQLiteAdapter('githubstats'));

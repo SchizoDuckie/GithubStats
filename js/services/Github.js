@@ -21,7 +21,6 @@ GithubStats.factory('Github', function(SettingsService, $q, $http) {
         return (param2) ? out.replace('%s', encodeURIComponent(param2)) : out;
     };
 
-
     var service = {
         getRepositories: function(name) {
             return $http.get(getUrl('repos', name), {

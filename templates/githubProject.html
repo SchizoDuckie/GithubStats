@@ -1,0 +1,12 @@
+<div>
+    <span class="glyphicon glyphicon-triangle-bottom" ng-class="{'rotate': isCollapsed}"></span>
+    <h2 ng-click="isCollapsed = !isCollapsed">{{::project.username}}/{{::project.repository}}
+        <small>Total Downloads: {{project.total_downloads|number}}</small>
+        <small>  Last Updated: {{project.last_updated|date:'medium'}}</small>
+    </h2>
+    <div class="project_inner" collapse="isCollapsed">
+        <h3 ng-if="project.releases.length == 0 && !project.noReleases">Loading...</h3>
+        <h3 ng-if="project.noReleases">No releases found</h3>
+        <github-release ng-repeat="release in project.releases track by $index" data="release" class="release"></github-release>
+    </div>
+</div>

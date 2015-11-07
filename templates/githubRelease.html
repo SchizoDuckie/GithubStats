@@ -1,0 +1,20 @@
+<div ng-class="{fadein: loaded}">
+    <h2>{{::release.name}}</h2>
+    <h4>Created: {{::release.created_at | date:'medium'}} 
+        <span class="text-muted">{{::$parent.project.username}}/{{::$parent.project.repository}}</span>
+    </h4>
+    <table class="table table-condensed table-striped">
+      <tr> 
+        <th>Name</th>
+        <th>Downloads</th>
+      </tr>
+      <tr ng-repeat="asset in release.assets track by $index">
+        <td>{{::asset.name}}</td>
+        <th>{{::asset.download_count}}</th>
+      </tr>
+      <tr>
+        <th style='text-align:right'>Total:</th>
+        <th>{{::release.download_count|number}}</th>
+      </tr>
+    </table>
+</div>
