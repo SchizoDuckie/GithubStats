@@ -1,3 +1,7 @@
+body {
+	overflow-y: scroll;
+}
+
 #releases {
 	overflow: hidden;
 	float: left;
@@ -9,14 +13,18 @@
 	padding-top: 37px;
 	margin: 12px 0;
 }
+
 #releases .project .project_inner {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	position: relative;
 	overflow: hidden;
+	padding: 0 10px;
+	margin-left: 10px;
 }
-#releases .project > h2 {
+
+#releases .project>h2 {
 	position: absolute;
 	top: 0;
 	left: 33px;
@@ -25,30 +33,63 @@
 	margin-top: 5px;
 	cursor: pointer;
 }
-#releases .project > h2 > small{
+
+#releases .project>h2>small {
 	margin-left: 3px;
 	font-size: 60%;
 }
-#releases .project > span {
+
+#releases .project>span {
 	position: absolute;
 	top: 15px;
 	left: 15px;
 	cursor: pointer;
 	transition: transform 0.4s ease-in-out;
 }
-#releases .project > span.rotate {
+
+#releases .project>span.rotate {
 	transform: rotate(-90deg);
 }
 
 #releases .release {
-	width: 46%;
+	width: 49%;
+	-webkit-order: 0;
+	order: 0;
+	-webkit-flex-grow: 1;
+	flex-grow: 1;
+	-webkit-flex-shrink: 1;
+	flex-shrink: 1;
+	-webkit-flex-basis: auto;
+	flex-basis: auto;
+	-webkit-align-self: auto;
+	align-self: auto;
+	min-width: 450px;
+	padding: 0 10px;
 }
+
+#releases .release .table {
+	margin-bottom: 10px;
+}
+
 #releases .release h4 span {
 	margin-left: 6px;
 }
 
 #menu {
-	float: right; 
+	float: right;
 	margin-right: 35px;
 	width: 286px;
+}
+
+#menu .repos-list .repo {
+	margin: 2px 0;
+}
+
+#menu .repo .glyphicon.glyphicon-trash {
+	cursor: pointer;
+	margin-right: 2px;
+}
+
+#menu .repo .glyphicon.glyphicon-trash:hover {
+	color: rgb(217, 83, 79);
 }
