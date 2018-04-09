@@ -6,7 +6,7 @@ GithubStats.factory('Github', function(SettingsService, $q, $http) {
         token = prompt("Please enter the github auth token");
         localStorage.setItem('token', token);
     }
-    var credentials = Base64.encode('SchizoDuckie:' + localStorage.getItem('token'));
+    var credentials = 'SchizoDuckie:' + localStorage.getItem('token');
 
     var endpoints = {
         repos: 'https://api.github.com/users/%s/repos',
